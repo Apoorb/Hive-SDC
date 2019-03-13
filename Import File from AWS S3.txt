@@ -1,0 +1,19 @@
+# See the files
+aws s3 ls prod-sdc-tti-911061262852-us-east-1-bucket --recursive --human-readable --summarize
+# See files just for abibeka
+aws s3 ls prod-sdc-tti-911061262852-us-east-1-bucket/abibeka --recursive --human-readable --summarize
+# See the users 
+aws s3 ls prod-sdc-tti-911061262852-us-east-1-bucket/
+# Copy the file locally
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_files/WestLoopVissim Spd 120718 PM_7.xlsx" Z:\Apoorb\UploadedFile_Ap.xlsx
+# See if I can download file from Hassan's folder  (Yes I can)
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/hcharara/uploaded_files/WestLoopVissim Spd 120718 PM_7.xlsx" Z:\Apoorb\UploadedFile_HC.xlsx
+
+
+
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/kbalke/uploaded_files/CV Grant VISSIM Network TMCs_Compiled.pdf" "Z:\KevinUploads\CV Grant VISSIM Network TMCs_Compiled.pdf"
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/kbalke/uploaded_files/FHWA CV Grant Heavy vehicle percentages.xlsx" "Z:\KevinUploads\FHWA CV Grant Heavy vehicle percentages.xlsx"
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/kbalke/uploaded_files/HNTB_Tampa Model_AM.zip" "Z:\KevinUploads\HNTB_Tampa Model_AM.zip"
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/kbalke/uploaded_files/Wyoming-NPMRDS_Test-Data_February-2018 (1).zip" "Z:\KevinUploads\Wyoming-NPMRDS_Test-Data_February-2018 (1).zip"
+
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/kbalke/uploaded_files/Wyoming-NPMRDS_Test-Data_February-2018 (1).zip" s3://"prod-sdc-tti-911061262852-us-east-1-bucket/Evaluation_Wyoming/Test data/Wyoming-NPMRDS_Test-Data_February-2018 (1).zip"
