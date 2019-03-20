@@ -20,4 +20,4 @@ aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/kbalke/uploaded_files
 
 aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_files/Roadway_Names_State_Mileposts_16-0517.kmz" s3://"prod-sdc-tti-911061262852-us-east-1-bucket/Wyoming/"
 
-aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_files/SpeedSen_MP_314_360.csv" s3://"C:\Users\abibeka\Documents\Apoorb\"
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_files/SpeedSen_MP_314_360.csv" C:\Users\abibeka\Documents\Apoorb\
