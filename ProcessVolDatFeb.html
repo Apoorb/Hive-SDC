@@ -13137,8 +13137,112 @@ div#notebook {
 <span class="n">obj</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;prod-sdc-tti-911061262852-us-east-1-bucket&#39;</span><span class="p">,</span><span class="n">Key</span><span class="o">=</span><span class="s2">&quot;abibeka/Vol_dat.csv&quot;</span><span class="p">)</span>
 <span class="n">dat</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;Body&#39;</span><span class="p">])</span>
 <span class="n">dat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
 
-<span class="n">client</span><span class="o">=</span><span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>t1.controller</th>
+      <th>t1.time5m</th>
+      <th>t1.nrec</th>
+      <th>t2.direction</th>
+      <th>t2.milepost</th>
+      <th>t2.2015_adt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>384</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>20</td>
+      <td>I</td>
+      <td>325.8</td>
+      <td>13890</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>384</td>
+      <td>2018-02-01 00:10:00</td>
+      <td>9</td>
+      <td>I</td>
+      <td>325.8</td>
+      <td>13890</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>384</td>
+      <td>2018-02-01 00:15:00</td>
+      <td>17</td>
+      <td>I</td>
+      <td>325.8</td>
+      <td>13890</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>384</td>
+      <td>2018-02-01 00:20:00</td>
+      <td>17</td>
+      <td>I</td>
+      <td>325.8</td>
+      <td>13890</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>384</td>
+      <td>2018-02-01 00:25:00</td>
+      <td>10</td>
+      <td>I</td>
+      <td>325.8</td>
+      <td>13890</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">client</span><span class="o">=</span><span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
 <span class="n">obj</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;prod-sdc-tti-911061262852-us-east-1-bucket&#39;</span><span class="p">,</span><span class="n">Key</span><span class="o">=</span><span class="s2">&quot;abibeka/uploaded_files/SpeedSen_MP_314_360.csv&quot;</span><span class="p">)</span>
 <span class="n">AB_SS</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;Body&#39;</span><span class="p">])</span>
 <span class="n">AB_SS</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -13154,7 +13258,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[2]:</div>
+    <div class="prompt output_prompt">Out[3]:</div>
 
 
 
@@ -13232,7 +13336,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">Rename1</span> <span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dat</span><span class="p">}</span>
@@ -13247,7 +13351,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">dat1</span> <span class="o">=</span><span class="n">dat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -13266,7 +13370,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">dat1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -13282,7 +13386,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[5]:</div>
+    <div class="prompt output_prompt">Out[13]:</div>
 
 
 
@@ -13356,7 +13460,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">dat1</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
@@ -13372,7 +13476,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[6]:</div>
+    <div class="prompt output_prompt">Out[14]:</div>
 
 
 
@@ -13446,13 +13550,14 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">dat1</span><span class="o">=</span> <span class="n">dat1</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">AB_SS</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;deviceId&#39;</span><span class="p">],</span><span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;DEVICEID&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">dat1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
-<span class="n">dat1</span><span class="o">=</span><span class="n">dat1</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;time5m&#39;</span><span class="p">)</span>
+<span class="n">dat1</span><span class="o">=</span><span class="n">dat1</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time5m&#39;</span><span class="p">,</span><span class="s1">&#39;DEVICEID&#39;</span><span class="p">])</span>
 <span class="n">dat1</span><span class="o">=</span><span class="n">dat1</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">dat1</span><span class="o">.</span><span class="n">nrec</span><span class="o">=</span><span class="n">dat1</span><span class="o">.</span><span class="n">nrec</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">dat1</span><span class="o">=</span><span class="n">dat1</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;nrec&#39;</span><span class="p">:</span><span class="s1">&#39;Volume&#39;</span><span class="p">,</span><span class="s1">&#39;MP&#39;</span><span class="p">:</span><span class="s2">&quot;Milepost&quot;</span><span class="p">,</span><span class="s2">&quot;Sensor_Loc&quot;</span><span class="p">:</span><span class="s2">&quot;Direction&quot;</span><span class="p">})</span>
 </pre></div>
 
     </div>
@@ -13462,7 +13567,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">dat1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -13478,7 +13583,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[8]:</div>
+    <div class="prompt output_prompt">Out[16]:</div>
 
 
 
@@ -13502,18 +13607,14 @@ div#notebook {
     <tr style="text-align: right;">
       <th></th>
       <th></th>
-      <th>time5m</th>
-      <th>nrec</th>
-      <th>DEVICEID</th>
+      <th>Volume</th>
       <th>SITENAME</th>
-      <th>MP</th>
-      <th>Sensor_Loc</th>
+      <th>Milepost</th>
+      <th>Direction</th>
     </tr>
     <tr>
       <th>deviceId</th>
       <th>DateTime</th>
-      <th></th>
-      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -13524,45 +13625,35 @@ div#notebook {
     <tr>
       <th rowspan="5" valign="top">384</th>
       <th>2018-02-01 00:05:00</th>
-      <td>2018-02-01 00:05:00</td>
       <td>20</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:10:00</th>
-      <td>2018-02-01 00:10:00</td>
       <td>9</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:15:00</th>
-      <td>2018-02-01 00:15:00</td>
       <td>17</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:20:00</th>
-      <td>2018-02-01 00:20:00</td>
       <td>17</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:25:00</th>
-      <td>2018-02-01 00:25:00</td>
       <td>10</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
@@ -13580,7 +13671,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">dat1</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
@@ -13596,7 +13687,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[9]:</div>
+    <div class="prompt output_prompt">Out[17]:</div>
 
 
 
@@ -13620,18 +13711,14 @@ div#notebook {
     <tr style="text-align: right;">
       <th></th>
       <th></th>
-      <th>time5m</th>
-      <th>nrec</th>
-      <th>DEVICEID</th>
+      <th>Volume</th>
       <th>SITENAME</th>
-      <th>MP</th>
-      <th>Sensor_Loc</th>
+      <th>Milepost</th>
+      <th>Direction</th>
     </tr>
     <tr>
       <th>deviceId</th>
       <th>DateTime</th>
-      <th></th>
-      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -13642,45 +13729,35 @@ div#notebook {
     <tr>
       <th rowspan="5" valign="top">3911</th>
       <th>2018-02-27 23:40:00</th>
-      <td>2018-02-27 23:40:00</td>
       <td>13</td>
-      <td>3911</td>
       <td>Telephone Canyon</td>
       <td>320.7</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:45:00</th>
-      <td>2018-02-27 23:45:00</td>
       <td>16</td>
-      <td>3911</td>
       <td>Telephone Canyon</td>
       <td>320.7</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:50:00</th>
-      <td>2018-02-27 23:50:00</td>
       <td>16</td>
-      <td>3911</td>
       <td>Telephone Canyon</td>
       <td>320.7</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:55:00</th>
-      <td>2018-02-27 23:55:00</td>
       <td>12</td>
-      <td>3911</td>
       <td>Telephone Canyon</td>
       <td>320.7</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-28 00:00:00</th>
-      <td>2018-02-28 00:00:00</td>
       <td>10</td>
-      <td>3911</td>
       <td>Telephone Canyon</td>
       <td>320.7</td>
       <td>WB</td>
@@ -13698,20 +13775,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">dat1</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Z:/Apoorb/Process_dat.csv&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">dat1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">384</span><span class="p">]</span>
@@ -13727,7 +13791,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[14]:</div>
+    <div class="prompt output_prompt">Out[18]:</div>
 
 
 
@@ -13750,17 +13814,13 @@ div#notebook {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>time5m</th>
-      <th>nrec</th>
-      <th>DEVICEID</th>
+      <th>Volume</th>
       <th>SITENAME</th>
-      <th>MP</th>
-      <th>Sensor_Loc</th>
+      <th>Milepost</th>
+      <th>Direction</th>
     </tr>
     <tr>
       <th>DateTime</th>
-      <th></th>
-      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -13770,270 +13830,210 @@ div#notebook {
   <tbody>
     <tr>
       <th>2018-02-01 00:05:00</th>
-      <td>2018-02-01 00:05:00</td>
       <td>20</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:10:00</th>
-      <td>2018-02-01 00:10:00</td>
       <td>9</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:15:00</th>
-      <td>2018-02-01 00:15:00</td>
       <td>17</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:20:00</th>
-      <td>2018-02-01 00:20:00</td>
       <td>17</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:25:00</th>
-      <td>2018-02-01 00:25:00</td>
       <td>10</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:30:00</th>
-      <td>2018-02-01 00:30:00</td>
       <td>11</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:35:00</th>
-      <td>2018-02-01 00:35:00</td>
       <td>16</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:40:00</th>
-      <td>2018-02-01 00:40:00</td>
       <td>11</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:45:00</th>
-      <td>2018-02-01 00:45:00</td>
       <td>14</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:50:00</th>
-      <td>2018-02-01 00:50:00</td>
       <td>12</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 00:55:00</th>
-      <td>2018-02-01 00:55:00</td>
       <td>9</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:00:00</th>
-      <td>2018-02-01 01:00:00</td>
       <td>6</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:05:00</th>
-      <td>2018-02-01 01:05:00</td>
       <td>16</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:10:00</th>
-      <td>2018-02-01 01:10:00</td>
       <td>11</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:15:00</th>
-      <td>2018-02-01 01:15:00</td>
       <td>8</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:20:00</th>
-      <td>2018-02-01 01:20:00</td>
       <td>13</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:25:00</th>
-      <td>2018-02-01 01:25:00</td>
       <td>8</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:30:00</th>
-      <td>2018-02-01 01:30:00</td>
       <td>8</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:35:00</th>
-      <td>2018-02-01 01:35:00</td>
       <td>10</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:40:00</th>
-      <td>2018-02-01 01:40:00</td>
       <td>9</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:45:00</th>
-      <td>2018-02-01 01:45:00</td>
       <td>10</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:50:00</th>
-      <td>2018-02-01 01:50:00</td>
       <td>6</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 01:55:00</th>
-      <td>2018-02-01 01:55:00</td>
       <td>14</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 02:00:00</th>
-      <td>2018-02-01 02:00:00</td>
       <td>12</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 02:05:00</th>
-      <td>2018-02-01 02:05:00</td>
       <td>5</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 02:10:00</th>
-      <td>2018-02-01 02:10:00</td>
       <td>9</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 02:15:00</th>
-      <td>2018-02-01 02:15:00</td>
       <td>15</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 02:20:00</th>
-      <td>2018-02-01 02:20:00</td>
       <td>10</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 02:25:00</th>
-      <td>2018-02-01 02:25:00</td>
       <td>7</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-01 02:30:00</th>
-      <td>2018-02-01 02:30:00</td>
       <td>12</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
@@ -14044,287 +14044,238 @@ div#notebook {
       <td>...</td>
       <td>...</td>
       <td>...</td>
-      <td>...</td>
-      <td>...</td>
     </tr>
     <tr>
       <th>2018-02-27 21:35:00</th>
-      <td>2018-02-27 21:35:00</td>
       <td>24</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 21:40:00</th>
-      <td>2018-02-27 21:40:00</td>
       <td>33</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 21:45:00</th>
-      <td>2018-02-27 21:45:00</td>
       <td>31</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 21:50:00</th>
-      <td>2018-02-27 21:50:00</td>
       <td>30</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 21:55:00</th>
-      <td>2018-02-27 21:55:00</td>
       <td>15</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:00:00</th>
-      <td>2018-02-27 22:00:00</td>
       <td>21</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:05:00</th>
-      <td>2018-02-27 22:05:00</td>
       <td>17</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:10:00</th>
-      <td>2018-02-27 22:10:00</td>
       <td>19</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:15:00</th>
-      <td>2018-02-27 22:15:00</td>
       <td>17</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:20:00</th>
-      <td>2018-02-27 22:20:00</td>
       <td>17</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:25:00</th>
-      <td>2018-02-27 22:25:00</td>
       <td>22</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:30:00</th>
-      <td>2018-02-27 22:30:00</td>
       <td>18</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:35:00</th>
-      <td>2018-02-27 22:35:00</td>
       <td>19</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:40:00</th>
-      <td>2018-02-27 22:40:00</td>
       <td>17</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:45:00</th>
-      <td>2018-02-27 22:45:00</td>
       <td>17</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:50:00</th>
-      <td>2018-02-27 22:50:00</td>
       <td>15</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 22:55:00</th>
-      <td>2018-02-27 22:55:00</td>
       <td>22</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:00:00</th>
-      <td>2018-02-27 23:00:00</td>
       <td>16</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:05:00</th>
-      <td>2018-02-27 23:05:00</td>
       <td>24</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:10:00</th>
-      <td>2018-02-27 23:10:00</td>
       <td>15</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:15:00</th>
-      <td>2018-02-27 23:15:00</td>
       <td>11</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:20:00</th>
-      <td>2018-02-27 23:20:00</td>
       <td>32</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:25:00</th>
-      <td>2018-02-27 23:25:00</td>
       <td>12</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:30:00</th>
-      <td>2018-02-27 23:30:00</td>
       <td>15</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:35:00</th>
-      <td>2018-02-27 23:35:00</td>
       <td>20</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:40:00</th>
-      <td>2018-02-27 23:40:00</td>
       <td>22</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:45:00</th>
-      <td>2018-02-27 23:45:00</td>
       <td>13</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:50:00</th>
-      <td>2018-02-27 23:50:00</td>
       <td>11</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-27 23:55:00</th>
-      <td>2018-02-27 23:55:00</td>
       <td>19</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
     <tr>
       <th>2018-02-28 00:00:00</th>
-      <td>2018-02-28 00:00:00</td>
       <td>10</td>
-      <td>384</td>
       <td>Summit East</td>
       <td>325.8</td>
       <td>WB</td>
     </tr>
   </tbody>
 </table>
-<p>7776 rows × 6 columns</p>
+<p>7776 rows × 4 columns</p>
 </div>
 </div>
 
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">dat1</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Z:/Apoorb/Process_dat.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
