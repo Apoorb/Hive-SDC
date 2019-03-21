@@ -13587,6 +13587,27 @@ set([384, 385, 386, 387, 388, 389, 2310, 391, 393, 394, 395, 396, 2178, 2191, 22
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Specify-Start-and-End-Date-for-Data-Aggregation">Specify Start and End Date for Data Aggregation<a class="anchor-link" href="#Specify-Start-and-End-Date-for-Data-Aggregation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2018-02-01&#39;</span>
+<span class="n">end_date</span><span class="o">=</span><span class="s1">&#39;2018-02-28&#39;</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
@@ -13595,11 +13616,11 @@ set([384, 385, 386, 387, 388, 389, 2310, 391, 393, 394, 395, 396, 2178, 2191, 22
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">create_query</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;SELECT t1.controller, t1.Time5M,t1.NRec, t2.direction, t2.milepost, t2.2015_adt FROM </span>
 <span class="s1">    (SELECT controller, FROM_UNIXTIME(CEILING(UNIX_TIMESTAMP(mountain)/300)*300) AS Time5M, count(*) AS NRec</span>
 <span class="s1">    FROM wydot_speed_unprocessed </span>
-<span class="s1">    WHERE mountain between &#39;2018-02-01&#39; AND &#39;2018-02-28&#39; </span>
+<span class="s1">    WHERE mountain between {} AND {}</span>
 <span class="s1">    GROUP BY controller,FROM_UNIXTIME(CEILING(UNIX_TIMESTAMP(mountain)/300)*300)) t1</span>
 <span class="s1">JOIN (SELECT * FROM wydot_speed_sensors_index WHERE milepost BETWEEN 314 AND 360) t2 </span>
 <span class="s1">ON (t1.controller = t2.deviceid)</span>
-<span class="s1">ORDER BY t1.controller, t1.Time5M&#39;&#39;&#39;</span>
+<span class="s1">ORDER BY t1.controller, t1.Time5M&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span><span class="n">end_date</span><span class="p">)</span>
 <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">create_query</span><span class="p">)</span>
 <span class="n">Vol_dat2</span><span class="o">=</span><span class="n">as_pandas</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
 </pre></div>
@@ -13756,19 +13777,6 @@ Just use import StringIO as StringIO</code></pre>
 
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span> 
-</pre></div>
-
-    </div>
 </div>
 </div>
 
