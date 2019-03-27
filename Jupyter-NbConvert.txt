@@ -1,0 +1,3 @@
+Convert .ipyb file to html
+Use conda prompt
+(py2) C:\Users\abibeka\Documents\Hive-SDC>jupyter nbconvert --to html ProcessVolDatFeb.ipynb
