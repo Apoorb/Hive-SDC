@@ -1,0 +1,29 @@
+# To turn a directory into git project
+git init 
+
+# Connect to github
+git remote add origin https://github.com/Apoorba-Bibeka/SDC-Cmds.git
+
+# Add files
+git add . 
+
+#Commit
+git commit -m "C1"
+
+#Push 
+git push -u origin master 
+
+# Future
+git push 
+
+# Check branch
+git status
+
+# Create a branch
+git branch branchAB
+
+# Activate a branch
+git checkout branchAB
+
+# Pull easy
+git pull

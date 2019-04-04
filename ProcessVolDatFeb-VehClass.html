@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Vol-Lamarie-Cheyenne</title>
+<title>ProcessVolDatFeb-VehClass</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13113,29 +13113,72 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Script-to-get-the-volume-data-by-VehClass">Script to get the volume data by VehClass<a class="anchor-link" href="#Script-to-get-the-volume-data-by-VehClass">&#182;</a></h1><p>Created by: Apoorba</p>
+<p>Date: March 27, 2019</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vehicle class:
+0: Unknown
+1: &lt;20 ft.
+2: 20-40 ft.
+3: &gt;40 ft.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">getpass</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">impala.dbapi</span> <span class="kn">import</span> <span class="n">connect</span>
-<span class="kn">from</span> <span class="nn">impala.util</span> <span class="kn">import</span> <span class="n">as_pandas</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">boto3</span> <span class="c1">#Need to read and write files to aws s3 bucket</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">BytesIO</span> <span class="k">as</span> <span class="n">StringIO</span> 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>Note: For Python 2.7 we imported BytesIO as StringIO
+Don't need to do this for Python 3.x
+Just use import StringIO as StringIO</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Read-the-5-min-aggregate-data">Read the 5 min aggregate data<a class="anchor-link" href="#Read-the-5-min-aggregate-data">&#182;</a></h2><p>The data is obtained from "Vol_dat.csv" file. We got this file from "Vol-Lamarie-Cheyenne-V1" script.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">username</span> <span class="o">=</span> <span class="s2">&quot;abibeka@securedatacommons.com&quot;</span>
-<span class="n">password1</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Data I got from a Report</span>
+<span class="n">client</span><span class="o">=</span><span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+<span class="n">obj</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;prod-sdc-tti-911061262852-us-east-1-bucket&#39;</span><span class="p">,</span><span class="n">Key</span><span class="o">=</span><span class="s2">&quot;abibeka/Vol_dat_Ln_Cls.csv&quot;</span><span class="p">)</span>
+<span class="n">dat</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;Body&#39;</span><span class="p">])</span>
+<span class="n">dat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13148,100 +13191,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>········
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">conn</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;172.18.1.20&quot;</span><span class="p">,</span><span class="n">auth_mechanism</span><span class="o">=</span><span class="s1">&#39;PLAIN&#39;</span><span class="p">,</span><span class="n">port</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span><span class="n">user</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password1</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;select * from wydot_speed_sensors_index&#39;</span><span class="p">)</span>
-<span class="n">SSindex</span> <span class="o">=</span> <span class="n">as_pandas</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
-<span class="n">Rename1</span> <span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;wydot_speed_sensors_index.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">SSindex</span><span class="p">}</span>
-<span class="n">SSindex</span><span class="o">=</span><span class="n">SSindex</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">Rename1</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">SSindex</span><span class="p">[</span><span class="s1">&#39;deviceid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">SSindex</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(array([ 382,  383,  393,  394,  395,  396,  398,  400,  405,  407,  408,
-        411,  384,  482, 1075, 1084, 1100, 1134, 1145, 1153, 1167, 1219,
-       1231,  385, 1241, 1251, 1258, 1269, 1280, 1327, 1342, 1837, 1838,
-       1839,  386, 2020, 2032, 2049, 2070, 2079, 2090, 2146, 2147, 2178,
-       2191,  387, 2202, 2213, 2246, 2263, 2274, 2289, 2298, 2310, 2319,
-       2334,  388, 2346, 2359, 2372, 2383, 2395, 2409, 2421, 2433, 2445,
-       2578,  389, 2607, 2609, 2916, 3236, 3243, 3249, 3296, 3402, 3482,
-       3654,  390, 3897, 3899, 3901, 3903, 3905, 3907, 3909, 3911,  391],
-      dtype=int64), Index([u&#39;deviceid&#39;, u&#39;lat_decimal&#39;, u&#39;long_decimal&#39;, u&#39;road_code&#39;, u&#39;sitename&#39;,
-       u&#39;devicename&#39;, u&#39;sensortype&#39;, u&#39;public_route&#39;, u&#39;gis_route&#39;,
-       u&#39;direction&#39;, u&#39;milepost&#39;, u&#39;sensor_loc&#39;, u&#39;nearest_rwis&#39;, u&#39;rwis&#39;,
-       u&#39;backup_rwis&#39;, u&#39;2015_adt&#39;, u&#39;vsl_id&#39;, u&#39;eb_vsl&#39;, u&#39;wb_vsl&#39;,
-       u&#39;horiz_d&#39;, u&#39;horiz_i&#39;, u&#39;vert_i&#39;, u&#39;vert_d&#39;, u&#39;notes&#39;],
-      dtype=&#39;object&#39;))
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">SSindex</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[5]:</div>
+    <div class="prompt output_prompt">Out[2]:</div>
 
 
 
@@ -13264,131 +13214,287 @@ div#notebook {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>deviceid</th>
-      <th>lat_decimal</th>
-      <th>long_decimal</th>
-      <th>milepost</th>
-      <th>2015_adt</th>
-      <th>eb_vsl</th>
-      <th>wb_vsl</th>
-      <th>horiz_d</th>
-      <th>horiz_i</th>
-      <th>vert_i</th>
-      <th>vert_d</th>
+      <th>t1.controller</th>
+      <th>t1.lane</th>
+      <th>t1.vehclass</th>
+      <th>t1.time5m</th>
+      <th>t1.nrec</th>
+      <th>t2.direction</th>
+      <th>t2.milepost</th>
+      <th>t2.2015_adt</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>88.000000</td>
-      <td>88.000000</td>
-      <td>88.000000</td>
-      <td>88.000000</td>
-      <td>88.000000</td>
-      <td>88.000000</td>
-      <td>88.000000</td>
-      <td>88.000000</td>
-      <td>88.000000</td>
-      <td>88.000000</td>
-      <td>88.000000</td>
+      <th>0</th>
+      <td>384</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>1</td>
+      <td>I</td>
+      <td>325.8</td>
+      <td>13890</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>1863.193182</td>
-      <td>41.413821</td>
-      <td>-107.174159</td>
-      <td>221.870000</td>
-      <td>13256.102273</td>
-      <td>1584.727273</td>
-      <td>1468.397727</td>
-      <td>0.806818</td>
-      <td>1.102273</td>
-      <td>-0.459432</td>
-      <td>0.372159</td>
+      <th>1</th>
+      <td>384</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>1</td>
+      <td>I</td>
+      <td>325.8</td>
+      <td>13890</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>1119.438754</td>
-      <td>0.232103</td>
-      <td>2.056499</td>
-      <td>118.860826</td>
-      <td>2917.310921</td>
-      <td>1032.126504</td>
-      <td>1098.427398</td>
-      <td>1.396695</td>
-      <td>1.597698</td>
-      <td>2.181240</td>
-      <td>2.167475</td>
+      <th>2</th>
+      <td>384</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>4</td>
+      <td>I</td>
+      <td>325.8</td>
+      <td>13890</td>
     </tr>
     <tr>
-      <th>min</th>
-      <td>382.000000</td>
-      <td>41.097107</td>
-      <td>-110.898090</td>
-      <td>8.450000</td>
-      <td>8147.000000</td>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>-5.030000</td>
-      <td>-5.140000</td>
+      <th>3</th>
+      <td>384</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>3</td>
+      <td>I</td>
+      <td>325.8</td>
+      <td>13890</td>
     </tr>
     <tr>
-      <th>25%</th>
-      <td>1081.750000</td>
-      <td>41.197800</td>
-      <td>-109.237466</td>
-      <td>104.212500</td>
-      <td>10645.000000</td>
-      <td>428.000000</td>
-      <td>416.000000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>-2.010000</td>
-      <td>-0.640000</td>
+      <th>4</th>
+      <td>384</td>
+      <td>4</td>
+      <td>1</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>1</td>
+      <td>I</td>
+      <td>325.8</td>
+      <td>13890</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Read-the-index-file-for-the-speed-sensors.">Read the index file for the speed sensors.<a class="anchor-link" href="#Read-the-index-file-for-the-speed-sensors.">&#182;</a></h2><p>Following is the index file for speed sensors; "SpeedSen_MP_314_360.csv". Got it from one of the WyDOT report.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span><span class="o">=</span><span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+<span class="n">obj</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;prod-sdc-tti-911061262852-us-east-1-bucket&#39;</span><span class="p">,</span><span class="n">Key</span><span class="o">=</span><span class="s2">&quot;abibeka/uploaded_files/SpeedSen_MP_314_360.csv&quot;</span><span class="p">)</span>
+<span class="n">AB_SS</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;Body&#39;</span><span class="p">])</span>
+<span class="n">AB_SS</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DEVICEID</th>
+      <th>SITENAME</th>
+      <th>MP</th>
+      <th>Sensor_Loc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>396</td>
+      <td>Laramie East</td>
+      <td>317.68</td>
+      <td>EB</td>
     </tr>
     <tr>
-      <th>50%</th>
-      <td>2074.500000</td>
-      <td>41.419465</td>
-      <td>-106.358965</td>
-      <td>262.750000</td>
-      <td>13237.500000</td>
-      <td>2118.000000</td>
-      <td>2089.500000</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>-0.690000</td>
-      <td>0.480000</td>
+      <th>1</th>
+      <td>3911</td>
+      <td>Telephone Canyon</td>
+      <td>320.70</td>
+      <td>WB</td>
     </tr>
     <tr>
-      <th>75%</th>
-      <td>2412.000000</td>
-      <td>41.610347</td>
-      <td>-105.431913</td>
-      <td>326.075000</td>
-      <td>13890.000000</td>
-      <td>2260.000000</td>
-      <td>2251.750000</td>
-      <td>2.000000</td>
-      <td>2.250000</td>
-      <td>0.672500</td>
-      <td>1.960000</td>
+      <th>2</th>
+      <td>395</td>
+      <td>Summit</td>
+      <td>322.05</td>
+      <td>WB</td>
     </tr>
     <tr>
-      <th>max</th>
-      <td>3911.000000</td>
-      <td>41.788223</td>
-      <td>-104.083160</td>
-      <td>401.800000</td>
-      <td>26454.000000</td>
-      <td>3400.000000</td>
-      <td>3668.000000</td>
-      <td>4.000000</td>
-      <td>4.000000</td>
-      <td>4.980000</td>
-      <td>5.040000</td>
+      <th>3</th>
+      <td>2146</td>
+      <td>Summit</td>
+      <td>322.60</td>
+      <td>WB</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2147</td>
+      <td>Summit</td>
+      <td>323.85</td>
+      <td>EB</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Process-5-min-aggregate-data">Process 5 min aggregate data<a class="anchor-link" href="#Process-5-min-aggregate-data">&#182;</a></h2><p>Remove the "tx." from the column name. Also only retain the relevant columns.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Rename1</span> <span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dat</span><span class="p">}</span>
+<span class="n">dat</span><span class="o">=</span><span class="n">dat</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">Rename1</span><span class="p">)</span>
+<span class="n">dat</span> <span class="o">=</span><span class="n">dat</span><span class="p">[[</span><span class="s1">&#39;controller&#39;</span><span class="p">,</span><span class="s1">&#39;time5m&#39;</span><span class="p">,</span><span class="s1">&#39;nrec&#39;</span><span class="p">,</span><span class="s1">&#39;lane&#39;</span><span class="p">,</span><span class="s1">&#39;vehclass&#39;</span><span class="p">]]</span>
+<span class="n">dat</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>controller</th>
+      <th>time5m</th>
+      <th>nrec</th>
+      <th>lane</th>
+      <th>vehclass</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>384</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>384</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>384</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>4</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>384</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>384</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -13403,35 +13509,29 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">SS2index</span><span class="o">=</span><span class="n">SSindex</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">SSindex</span><span class="p">[</span><span class="s1">&#39;milepost&#39;</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">314</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">SSindex</span><span class="p">[</span><span class="s1">&#39;milepost&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">360</span><span class="p">)]</span>
-<span class="n">SS2index</span> <span class="o">=</span> <span class="n">SS2index</span><span class="p">[[</span><span class="s2">&quot;deviceid&quot;</span><span class="p">,</span><span class="s2">&quot;milepost&quot;</span><span class="p">,</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span><span class="s2">&quot;2015_adt&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="n">SS2index</span><span class="p">[</span><span class="s1">&#39;deviceid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dat_e</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;controller&#39;</span><span class="p">,</span><span class="s1">&#39;time5m&#39;</span><span class="p">],</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;nrec&#39;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vehclass&#39;</span><span class="p">],</span><span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[ 383  393  394  395  396  384  385 1839  386 2146 2147 2178 2191  387
- 2202 2213 2246 2263 2274 2289 2298 2310 2319  388  389 3654  390 3911
-  391]
-</pre>
 </div>
-</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dat_e1</span><span class="o">=</span><span class="n">dat_e</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">dat_e1</span><span class="o">=</span><span class="n">dat_e</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">dat_e1</span><span class="o">=</span><span class="n">dat_e</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">dat_e1</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s2">&quot;VehClass0&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="s2">&quot;VehClass1&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="s2">&quot;VehClass2&quot;</span><span class="p">,</span><span class="mi">3</span><span class="p">:</span><span class="s2">&quot;VehClass3&quot;</span><span class="p">})</span>
+</pre></div>
 
+    </div>
 </div>
 </div>
 
@@ -13441,24 +13541,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Data I got from a Report</span>
-<span class="n">AB_SS</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;C:/Users/abibeka/Documents/Apoorb/SpeedSen_MP_314_360.csv&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Return set with elements in either the set or ohter but not both</span>
-<span class="k">print</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">AB_SS</span><span class="p">[</span><span class="s1">&#39;DEVICEID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">^</span> <span class="nb">set</span><span class="p">(</span><span class="n">SS2index</span><span class="p">[</span><span class="s1">&#39;deviceid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
-<span class="c1"># Return intersection </span>
-<span class="k">print</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">AB_SS</span><span class="p">[</span><span class="s1">&#39;DEVICEID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">SS2index</span><span class="p">[</span><span class="s1">&#39;deviceid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dat_e1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13471,16 +13554,121 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt"></div>
+    <div class="prompt output_prompt">Out[7]:</div>
 
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>set([])
-set([384, 385, 386, 387, 388, 389, 2310, 391, 393, 394, 395, 396, 2178, 2191, 2202, 3654, 1839, 2246, 3911, 2146, 2263, 2319, 390, 2213, 2274, 2147, 2289, 2298, 383])
-</pre>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>controller</th>
+      <th>time5m</th>
+      <th>VehClass0</th>
+      <th>VehClass1</th>
+      <th>VehClass2</th>
+      <th>VehClass3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>384</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>384</td>
+      <td>2018-02-01 00:10:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>384</td>
+      <td>2018-02-01 00:15:00</td>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>384</td>
+      <td>2018-02-01 00:20:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>384</td>
+      <td>2018-02-01 00:25:00</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Create-continous-date-indices">Create continous date indices<a class="anchor-link" href="#Create-continous-date-indices">&#182;</a></h2><p>Basically fill out observation where volume was 0.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dev</span><span class="o">=</span><span class="n">dat_e1</span><span class="p">[</span><span class="s1">&#39;controller&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="c1"># Get index for time </span>
+<span class="n">dat_e1</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dat_e1</span><span class="p">[</span><span class="s1">&#39;time5m&#39;</span><span class="p">],</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+<span class="c1"># Set index</span>
+<span class="n">dat_e1</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;controller&#39;</span><span class="p">,</span><span class="s1">&#39;DateTime&#39;</span><span class="p">])</span> 
+<span class="c1"># Create time interval index without missing values</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2018-02-01&#39;</span><span class="p">,</span><span class="s1">&#39;2018-02-28&#39;</span><span class="p">,</span><span class="n">closed</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="s1">&#39;5min&#39;</span><span class="p">)</span>
+<span class="c1"># Create a multiindex</span>
+<span class="n">multi_index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_product</span><span class="p">([</span><span class="n">dev</span><span class="p">,</span><span class="n">index</span><span class="p">],</span><span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;deviceId&#39;</span><span class="p">,</span><span class="s1">&#39;DateTime&#39;</span><span class="p">])</span>
+<span class="c1"># Reindex. Now the missing values have nan. </span>
+<span class="n">dat_e1</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">multi_index</span><span class="p">)</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -13490,9 +13678,7 @@ set([384, 385, 386, 387, 388, 389, 2310, 391, 393, 394, 395, 396, 2178, 2191, 22
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">SS2index</span><span class="o">=</span><span class="n">SS2index</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;milepost&quot;</span><span class="p">)</span>
-<span class="n">SS2index</span><span class="o">=</span><span class="n">SS2index</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">SS2index</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dat_e1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13528,215 +13714,222 @@ set([384, 385, 386, 387, 388, 389, 2310, 391, 393, 394, 395, 396, 2178, 2191, 22
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>deviceid</th>
-      <th>milepost</th>
-      <th>direction</th>
-      <th>2015_adt</th>
+      <th></th>
+      <th>time5m</th>
+      <th>VehClass0</th>
+      <th>VehClass1</th>
+      <th>VehClass2</th>
+      <th>VehClass3</th>
+    </tr>
+    <tr>
+      <th>deviceId</th>
+      <th>DateTime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>396</td>
-      <td>317.68</td>
-      <td>B</td>
-      <td>13890</td>
+      <th rowspan="5" valign="top">384</th>
+      <th>2018-02-01 00:05:00</th>
+      <td>2018-02-01 00:05:00</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>16.0</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>3654</td>
-      <td>318.50</td>
-      <td>D</td>
-      <td>13890</td>
+      <th>2018-02-01 00:10:00</th>
+      <td>2018-02-01 00:10:00</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>7.0</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>3911</td>
-      <td>320.70</td>
-      <td>B</td>
-      <td>13890</td>
+      <th>2018-02-01 00:15:00</th>
+      <td>2018-02-01 00:15:00</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>11.0</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>395</td>
-      <td>322.05</td>
-      <td>B</td>
-      <td>13890</td>
+      <th>2018-02-01 00:20:00</th>
+      <td>2018-02-01 00:20:00</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>13.0</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>2146</td>
-      <td>322.60</td>
-      <td>B</td>
-      <td>13890</td>
+      <th>2018-02-01 00:25:00</th>
+      <td>2018-02-01 00:25:00</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>8.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Reset-the-index-and-merge-data-with-index-table">Reset the index and merge data with index table<a class="anchor-link" href="#Reset-the-index-and-merge-data-with-index-table">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Add information about the speed sensor by merging with the index table</span>
+<span class="c1"># First make dat1 a single index table then merge with AB_SS table and then change the new table to multi index. </span>
+<span class="n">dat_e1</span><span class="o">=</span> <span class="n">dat_e1</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">AB_SS</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;deviceId&#39;</span><span class="p">],</span><span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;DEVICEID&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+<span class="c1"># Drop unnecessary columns</span>
+<span class="n">dat_e1</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time5m&#39;</span><span class="p">,</span><span class="s1">&#39;DEVICEID&#39;</span><span class="p">])</span>
+<span class="c1"># Replace nan wiht 0 in indices with missing values. </span>
+<span class="n">dat_e1</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># Correct data type</span>
+<span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass0</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass0</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass1</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass1</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass2</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass2</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass3</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass3</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="c1"># Remae columns</span>
+<span class="n">dat_e1</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;MP&#39;</span><span class="p">:</span><span class="s2">&quot;Milepost&quot;</span><span class="p">,</span><span class="s2">&quot;Sensor_Loc&quot;</span><span class="p">:</span><span class="s2">&quot;Direction&quot;</span><span class="p">})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dat_e1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[11]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>VehClass0</th>
+      <th>VehClass1</th>
+      <th>VehClass2</th>
+      <th>VehClass3</th>
+      <th>SITENAME</th>
+      <th>Milepost</th>
+      <th>Direction</th>
     </tr>
     <tr>
-      <th>5</th>
-      <td>2147</td>
-      <td>323.85</td>
-      <td>B</td>
-      <td>13890</td>
+      <th>deviceId</th>
+      <th>DateTime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">384</th>
+      <th>2018-02-01 00:05:00</th>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>16</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
     </tr>
     <tr>
-      <th>6</th>
-      <td>394</td>
-      <td>324.00</td>
-      <td>D</td>
-      <td>13890</td>
+      <th>2018-02-01 00:10:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>7</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
     </tr>
     <tr>
-      <th>7</th>
-      <td>383</td>
-      <td>324.90</td>
-      <td>B</td>
-      <td>13890</td>
+      <th>2018-02-01 00:15:00</th>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+      <td>11</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
     </tr>
     <tr>
-      <th>8</th>
-      <td>384</td>
-      <td>325.80</td>
-      <td>I</td>
-      <td>13890</td>
+      <th>2018-02-01 00:20:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>13</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
     </tr>
     <tr>
-      <th>9</th>
-      <td>385</td>
-      <td>326.90</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>2178</td>
-      <td>329.88</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>393</td>
-      <td>330.00</td>
-      <td>I</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>2191</td>
-      <td>332.29</td>
-      <td>D</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>2202</td>
-      <td>333.32</td>
-      <td>I</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>2213</td>
-      <td>334.30</td>
-      <td>D</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>386</td>
-      <td>334.50</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>387</td>
-      <td>336.10</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>388</td>
-      <td>336.50</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>389</td>
-      <td>338.10</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>2246</td>
-      <td>339.86</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>390</td>
-      <td>340.50</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>2263</td>
-      <td>343.24</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>391</td>
-      <td>343.80</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>2274</td>
-      <td>344.69</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>2289</td>
-      <td>345.90</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>2298</td>
-      <td>347.69</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>2310</td>
-      <td>349.15</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>2319</td>
-      <td>353.00</td>
-      <td>B</td>
-      <td>13890</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>1839</td>
-      <td>356.70</td>
-      <td>B</td>
-      <td>13890</td>
+      <th>2018-02-01 00:25:00</th>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
     </tr>
   </tbody>
 </table>
@@ -13751,111 +13944,133 @@ set([384, 385, 386, 387, 388, 389, 2310, 391, 393, 394, 395, 396, 2178, 2191, 22
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">indS</span><span class="o">=</span><span class="n">SS2index</span><span class="o">.</span><span class="n">deviceid</span><span class="o">.</span><span class="n">values</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">create_query</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;SELECT t1.controller, t1.mountain, t2.direction, t2.milepost, t2.2015_adt FROM </span>
-<span class="s1">(SELECT * FROM wydot_speed_unprocessed WHERE mountain between &#39;2018-02-01&#39; AND &#39;2018-02-28&#39;) t1</span>
-<span class="s1">JOIN wydot_speed_sensors_index t2 </span>
-<span class="s1">ON (t1.controller = t2.deviceid)&#39;&#39;&#39;</span>
-<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">create_query</span><span class="p">)</span>
-<span class="n">Vol_dat</span><span class="o">=</span><span class="n">as_pandas</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
-<span class="c1">#print(cursor.fetchall())</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">MemoryError</span>                               Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-11-ec42d8c5eaf9&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-fg">      4</span> ON (t1.controller = t2.deviceid)&#39;&#39;&#39;
-<span class="ansi-green-fg">      5</span> cursor<span class="ansi-yellow-intense-fg ansi-bold">.</span>execute<span class="ansi-yellow-intense-fg ansi-bold">(</span>create_query<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 6</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>Vol_dat<span class="ansi-yellow-intense-fg ansi-bold">=</span>as_pandas<span class="ansi-yellow-intense-fg ansi-bold">(</span>cursor<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">      7</span> <span class="ansi-red-intense-fg ansi-bold">#print(cursor.fetchall())</span>
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\abibeka\AppData\Local\Continuum\anaconda3\envs\py2\lib\site-packages\impala\util.pyc</span> in <span class="ansi-cyan-fg">as_pandas</span><span class="ansi-blue-intense-fg ansi-bold">(cursor)</span>
-<span class="ansi-green-fg">     57</span>     <span class="ansi-green-intense-fg ansi-bold">from</span> pandas <span class="ansi-green-intense-fg ansi-bold">import</span> DataFrame  <span class="ansi-red-intense-fg ansi-bold"># pylint: disable=import-error</span>
-<span class="ansi-green-fg">     58</span>     names <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-yellow-intense-fg ansi-bold">[</span>metadata<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-green-intense-fg ansi-bold">for</span> metadata <span class="ansi-green-intense-fg ansi-bold">in</span> cursor<span class="ansi-yellow-intense-fg ansi-bold">.</span>description<span class="ansi-yellow-intense-fg ansi-bold">]</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 59</span><span class="ansi-yellow-intense-fg ansi-bold">     </span><span class="ansi-green-intense-fg ansi-bold">return</span> DataFrame<span class="ansi-yellow-intense-fg ansi-bold">.</span>from_records<span class="ansi-yellow-intense-fg ansi-bold">(</span>cursor<span class="ansi-yellow-intense-fg ansi-bold">.</span>fetchall<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> columns<span class="ansi-yellow-intense-fg ansi-bold">=</span>names<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     60</span> 
-<span class="ansi-green-fg">     61</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\abibeka\AppData\Local\Continuum\anaconda3\envs\py2\lib\site-packages\pandas\core\frame.pyc</span> in <span class="ansi-cyan-fg">from_records</span><span class="ansi-blue-intense-fg ansi-bold">(cls, data, index, exclude, columns, coerce_float, nrows)</span>
-<span class="ansi-green-fg">   1510</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">   1511</span>             arrays, arr_columns = to_arrays(data, columns,
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1512</span><span class="ansi-yellow-intense-fg ansi-bold">                                             coerce_float=coerce_float)
-</span><span class="ansi-green-fg">   1513</span> 
-<span class="ansi-green-fg">   1514</span>             arr_columns <span class="ansi-yellow-intense-fg ansi-bold">=</span> ensure_index<span class="ansi-yellow-intense-fg ansi-bold">(</span>arr_columns<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\abibeka\AppData\Local\Continuum\anaconda3\envs\py2\lib\site-packages\pandas\core\internals\construction.pyc</span> in <span class="ansi-cyan-fg">to_arrays</span><span class="ansi-blue-intense-fg ansi-bold">(data, columns, coerce_float, dtype)</span>
-<span class="ansi-green-fg">    402</span>     <span class="ansi-green-intense-fg ansi-bold">if</span> isinstance<span class="ansi-yellow-intense-fg ansi-bold">(</span>data<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">(</span>list<span class="ansi-yellow-intense-fg ansi-bold">,</span> tuple<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    403</span>         return _list_to_arrays(data, columns, coerce_float=coerce_float,
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 404</span><span class="ansi-yellow-intense-fg ansi-bold">                                dtype=dtype)
-</span><span class="ansi-green-fg">    405</span>     <span class="ansi-green-intense-fg ansi-bold">elif</span> isinstance<span class="ansi-yellow-intense-fg ansi-bold">(</span>data<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> compat<span class="ansi-yellow-intense-fg ansi-bold">.</span>Mapping<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    406</span>         return _list_of_dict_to_arrays(data, columns,
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Users\abibeka\AppData\Local\Continuum\anaconda3\envs\py2\lib\site-packages\pandas\core\internals\construction.pyc</span> in <span class="ansi-cyan-fg">_list_to_arrays</span><span class="ansi-blue-intense-fg ansi-bold">(data, columns, coerce_float, dtype)</span>
-<span class="ansi-green-fg">    429</span> <span class="ansi-green-intense-fg ansi-bold">def</span> _list_to_arrays<span class="ansi-yellow-intense-fg ansi-bold">(</span>data<span class="ansi-yellow-intense-fg ansi-bold">,</span> columns<span class="ansi-yellow-intense-fg ansi-bold">,</span> coerce_float<span class="ansi-yellow-intense-fg ansi-bold">=</span>False<span class="ansi-yellow-intense-fg ansi-bold">,</span> dtype<span class="ansi-yellow-intense-fg ansi-bold">=</span>None<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    430</span>     <span class="ansi-green-intense-fg ansi-bold">if</span> len<span class="ansi-yellow-intense-fg ansi-bold">(</span>data<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">&gt;</span> <span class="ansi-cyan-intense-fg ansi-bold">0</span> <span class="ansi-green-intense-fg ansi-bold">and</span> isinstance<span class="ansi-yellow-intense-fg ansi-bold">(</span>data<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> tuple<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 431</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>content <span class="ansi-yellow-intense-fg ansi-bold">=</span> list<span class="ansi-yellow-intense-fg ansi-bold">(</span>lib<span class="ansi-yellow-intense-fg ansi-bold">.</span>to_object_array_tuples<span class="ansi-yellow-intense-fg ansi-bold">(</span>data<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>T<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    432</span>     <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    433</span>         <span class="ansi-red-intense-fg ansi-bold"># list of lists</span>
-
-<span class="ansi-green-intense-fg ansi-bold">pandas/_libs/lib.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.lib.to_object_array_tuples</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-
-<span class="ansi-red-intense-fg ansi-bold">MemoryError</span>: </pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">Vol_dat</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">Vol_dat</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;C:/Users/abibeka/Documents/Hive-SDC/Vol_dat.csv&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dat_e1</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">384</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[12]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>VehClass0</th>
+      <th>VehClass1</th>
+      <th>VehClass2</th>
+      <th>VehClass3</th>
+      <th>SITENAME</th>
+      <th>Milepost</th>
+      <th>Direction</th>
+    </tr>
+    <tr>
+      <th>DateTime</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2018-02-01 00:05:00</th>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>16</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
+    </tr>
+    <tr>
+      <th>2018-02-01 00:10:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>7</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
+    </tr>
+    <tr>
+      <th>2018-02-01 00:15:00</th>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+      <td>11</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
+    </tr>
+    <tr>
+      <th>2018-02-01 00:20:00</th>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>13</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
+    </tr>
+    <tr>
+      <th>2018-02-01 00:25:00</th>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dat_e1</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;TotVeh&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass0</span><span class="o">+</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass1</span><span class="o">+</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass2</span><span class="o">+</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass3</span>
+<span class="n">dat_e1</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;PerHGV&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">VehClass3</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">dat_e1</span><span class="o">.</span><span class="n">TotVeh</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13871,14 +14086,10 @@ set([384, 385, 386, 387, 388, 389, 2310, 391, 393, 394, 395, 396, 2178, 2191, 22
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-12-3fb5834f0d4c&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>Vol_dat<span class="ansi-yellow-intense-fg ansi-bold">.</span>to_csv<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;C:/Users/abibeka/Documents/Hive-SDC/Vol_dat.csv&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;Vol_dat&#39; is not defined</pre>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\Users\abibeka\AppData\Local\Continuum\anaconda3\envs\py2\lib\site-packages\pandas\core\series.py:1999: RuntimeWarning: invalid value encountered in rint
+  result = com.values_from_object(self).round(decimals)
+</pre>
 </div>
 </div>
 
@@ -13888,13 +14099,233 @@ set([384, 385, 386, 387, 388, 389, 2310, 391, 393, 394, 395, 396, 2178, 2191, 22
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Can untack the columns to reshaped the data</span>
+<span class="c1">#dat_e1.unstack(1).head()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Write-the-final-output-in-Z-drive">Write the final output in Z drive<a class="anchor-link" href="#Write-the-final-output-in-Z-drive">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dat_e1</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Z:/Apoorb/Process_dat_Class.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Write-the-final-output-to-a-folder-in-bucket">Write the final output to a folder in bucket<a class="anchor-link" href="#Write-the-final-output-to-a-folder-in-bucket">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">csv_buffer</span><span class="o">=</span><span class="n">StringIO</span><span class="p">()</span>
+<span class="n">dat_e1</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_buffer</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">s3</span><span class="o">=</span><span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+<span class="n">s3</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span><span class="s1">&#39;prod-sdc-tti-911061262852-us-east-1-bucket&#39;</span><span class="p">,</span><span class="s1">&#39;abibeka/Data/ProcessVolDat_Class.csv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">Body</span><span class="o">=</span><span class="n">csv_buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[16]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{u&#39;ETag&#39;: &#39;&#34;bbe6a465648b5939706dbc7d2eff17b3&#34;&#39;,
+ &#39;ResponseMetadata&#39;: {&#39;HTTPHeaders&#39;: {&#39;content-length&#39;: &#39;0&#39;,
+   &#39;date&#39;: &#39;Thu, 28 Mar 2019 15:41:58 GMT&#39;,
+   &#39;etag&#39;: &#39;&#34;bbe6a465648b5939706dbc7d2eff17b3&#34;&#39;,
+   &#39;server&#39;: &#39;AmazonS3&#39;,
+   &#39;x-amz-id-2&#39;: &#39;O7k/W3rWRa5ZRwqcmxk7zFfOiZj6nw63n4wnbrFrCar3fj4IxEKaFoCVvNDnaSTl4xAoPLH2LiY=&#39;,
+   &#39;x-amz-request-id&#39;: &#39;CF7D9700FFBDA02B&#39;},
+  &#39;HTTPStatusCode&#39;: 200,
+  &#39;HostId&#39;: &#39;O7k/W3rWRa5ZRwqcmxk7zFfOiZj6nw63n4wnbrFrCar3fj4IxEKaFoCVvNDnaSTl4xAoPLH2LiY=&#39;,
+  &#39;RequestId&#39;: &#39;CF7D9700FFBDA02B&#39;,
+  &#39;RetryAttempts&#39;: 0}}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Read-the-file-created-above">Read the file created above<a class="anchor-link" href="#Read-the-file-created-above">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">client</span><span class="o">=</span><span class="n">boto3</span><span class="o">.</span><span class="n">client</span><span class="p">(</span><span class="s1">&#39;s3&#39;</span><span class="p">)</span>
+<span class="n">obj</span><span class="o">=</span><span class="n">client</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">Bucket</span><span class="o">=</span><span class="s1">&#39;prod-sdc-tti-911061262852-us-east-1-bucket&#39;</span><span class="p">,</span><span class="n">Key</span><span class="o">=</span><span class="s1">&#39;abibeka/Data/ProcessVolDat_Class.csv&#39;</span><span class="p">)</span>
+<span class="n">dat_test</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;Body&#39;</span><span class="p">])</span>
+<span class="n">dat_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[17]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>deviceId</th>
+      <th>DateTime</th>
+      <th>VehClass0</th>
+      <th>VehClass1</th>
+      <th>VehClass2</th>
+      <th>VehClass3</th>
+      <th>SITENAME</th>
+      <th>Milepost</th>
+      <th>Direction</th>
+      <th>TotVeh</th>
+      <th>PerHGV</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>384</td>
+      <td>2018-02-01 00:05:00</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>16</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
+      <td>20</td>
+      <td>80.00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>384</td>
+      <td>2018-02-01 00:10:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>7</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
+      <td>9</td>
+      <td>77.78</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>384</td>
+      <td>2018-02-01 00:15:00</td>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+      <td>11</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
+      <td>17</td>
+      <td>64.71</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>384</td>
+      <td>2018-02-01 00:20:00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>13</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
+      <td>17</td>
+      <td>76.47</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>384</td>
+      <td>2018-02-01 00:25:00</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>8</td>
+      <td>Summit East</td>
+      <td>325.8</td>
+      <td>WB</td>
+      <td>10</td>
+      <td>80.00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 

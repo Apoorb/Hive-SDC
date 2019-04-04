@@ -25,3 +25,7 @@ aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_file
 aws s3 cp Z:\Apoorb\Vol_dat_Feb1_10.csv s3://"prod-sdc-tti-911061262852-us-east-1-bucket/export_requests" 
 aws s3 cp Z:\Apoorb\Vol_dat_Feb11_20.csv s3://"prod-sdc-tti-911061262852-us-east-1-bucket/export_requests" 
 aws s3 cp Z:\Apoorb\Vol_dat_Feb21_28.csv s3://"prod-sdc-tti-911061262852-us-east-1-bucket/export_requests" 
+
+
+
+aws s3 mv s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/Vol_dat.csv" s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/Data/Feb2018HiveVolDat.csv"
