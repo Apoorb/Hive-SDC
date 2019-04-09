@@ -29,3 +29,12 @@ aws s3 cp Z:\Apoorb\Vol_dat_Feb21_28.csv s3://"prod-sdc-tti-911061262852-us-east
 
 
 aws s3 mv s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/Vol_dat.csv" s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/Data/Feb2018HiveVolDat.csv"
+
+
+
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_files/SDCIssueTracking (002).xlsx" "Z:\\Resources\WyDOT_ERD.html"
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_files/WyDOT_ERD.html" "Z:\\Resources\WyDOT_ERD.html"
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_files/Thea_ERD.html" "Z:\\Resources"
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_files/Working with Files in AWS S3 Bucket.docx" "Z:\\Resources"
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_files/Tampa CVP Dictionary 02.05.19_AB.xlsx" "Z:\\Resources"
+aws s3 cp s3://"prod-sdc-tti-911061262852-us-east-1-bucket/abibeka/uploaded_files/WYDOT_DataDictionary_01.25.19_susie_AB.xlsx" "Z:\\Resources"
