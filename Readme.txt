@@ -4,3 +4,5 @@ ProcessVolDatFeb-VehClass.ipynb: Process the output data from VolDatFromUnproces
 ProcessVolDatFeb-VehClass.html: html file for ProcessVolDatFeb-VehClass.ipynb notebook
 Visualize-FebVol-VehClass.ipynb: Process the output data from ProcessVolDatFeb-VehClass.ipynb. Visualize the volume data and figure out how to handle missing data 
 Visualize-FebVol-VehClass.html: html file for Visualize-FebVol-VehClass.ipynb
+WeatherAttributes_Hive.ipynb: Get the Weather (ATMOS and Surface) for 5 min intervals by sensors.
+MergeVolSpd_with_RWIS_dat.ipynb: Merge the volume and weather data.
